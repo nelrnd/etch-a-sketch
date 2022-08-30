@@ -96,6 +96,14 @@ input[type="range"]::-moz-range-thumb {
   flex: 0 1 auto;
 }
 
+.tab {
+  margin-bottom: 40px;
+}
+
 .painted {
   background-color: black;
+}
+
+.bordered {
+  border: solid .5px #D8D8D8;
 }

@@ -15,7 +15,7 @@ function createGrid(size = 16) {
   // Create squares and add to grid
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement('div');
-    
+
     square.classList.add('square');
     square.addEventListener('mouseover', event => {
       event.target.classList.add('painted');
@@ -27,6 +27,15 @@ function createGrid(size = 16) {
 
 sizeSlider.addEventListener('input', event => {
   createGrid(event.target.value);
+  document.querySelectorAll('#grid>div').forEach(element => {
+    element.classList.add('bordered');
+  });
+});
+
+sizeSlider.addEventListener('mouseup', () => {
+  document.querySelectorAll('#grid>div').forEach(element => {
+    element.classList.remove('bordered');
+  });
 });
 
 window.addEventListener('load', () => createGrid());
