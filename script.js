@@ -15,13 +15,30 @@ function createGrid(size = 16) {
   // Create squares and add to grid
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement('div');
-
     square.classList.add('square');
-    square.addEventListener('mouseover', event => {
+    square.addEventListener('click', event => {
       event.target.classList.add('painted');
     })
 
     grid.appendChild(square);
+  }
+}
+
+grid.addEventListener('mousedown', event => {
+  if (event.button === 0) {
+    grid.querySelectorAll('div').forEach(square => {
+      square.addEventListener('mouseover', paintSquare);
+    });
+  }
+});
+
+function paintSquare(event) {
+  if (event.buttons === 0) {
+    grid.querySelectorAll('div').forEach(square => {
+      square.removeEventListener('mouseover', paintSquare);
+    });
+  } else {
+    event.target.classList.add('painted');
   }
 }
 
