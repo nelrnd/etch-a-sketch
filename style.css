@@ -85,7 +85,7 @@ input[type="range"]::-moz-range-thumb {
   width: 530px;
   height: 530px;
   display: grid;
-  background-color: white;
+  background-color: #ffffff;
   outline: solid 3px black;
   box-shadow: 15px 15px 0 rgba(0,0,0,0.25);
   flex: 0 0 auto;
@@ -98,10 +98,6 @@ input[type="range"]::-moz-range-thumb {
 
 .tab {
   margin-bottom: 40px;
-}
-
-.painted {
-  background-color: black;
 }
 
 .bordered {

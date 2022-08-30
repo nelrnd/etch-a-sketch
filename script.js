@@ -1,6 +1,10 @@
 const grid = document.getElementById('grid');
 const sizeSlider = document.getElementById('sizeSlider');
 const clearButton = document.getElementById('clearButton')
+const brushColorSelect = document.getElementById('brushColorSelect');
+const backgroundColorSelect = document.getElementById('backgroundColorSelect');
+
+let brushColor = 'black';
 
 function createGrid(size = 16) {
   // Show grid size in text format
@@ -39,13 +43,19 @@ function paintSquare(event) {
       square.removeEventListener('mouseover', paintSquare);
     });
   } else {
-    event.target.classList.add('painted');
+    event.target.style.backgroundColor = brushColor;
   }
 }
 
 function clearGrid() {
+  if (backgroundColorSelect.value !== '#ffffff') {
+    backgroundColorSelect.value = '#ffffff';
+  }
+  if (grid.style.backgroundColor !== '#ffffff') {
+    grid.style.backgroundColor = '#ffffff';
+  }
   grid.querySelectorAll('div').forEach(square => {
-    square.classList.remove('painted');
+    square.style.backgroundColor = '';
   })
 }
 
@@ -61,6 +71,10 @@ sizeSlider.addEventListener('mouseup', () => {
     square.classList.remove('bordered');
   });
 });
+
+brushColorSelect.addEventListener('change', event => brushColor = event.target.value);
+
+backgroundColorSelect.addEventListener('input', event => grid.style.backgroundColor = event.target.value);
 
 clearButton.addEventListener('click', clearGrid);
 
