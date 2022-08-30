@@ -1,10 +1,16 @@
 const grid = document.getElementById('grid');
 const sizeSlider = document.getElementById('sizeSlider');
-const clearButton = document.getElementById('clearButton')
+const clearButton = document.getElementById('clearButton');
+const brushModes = document.querySelector('div.mode-container');
 const brushColorSelect = document.getElementById('brushColorSelect');
 const backgroundColorSelect = document.getElementById('backgroundColorSelect');
 
-let brushColor = 'black';
+const rainbowColors = 
+['red', 'orange', 'yellow', 'greenyellow', 'green', 'blue', 'indigo', 'purple'];
+let rainbowCounter = 0;
+
+let brushMode = 'singleColor';
+let brushColor = '#000000';
 
 function createGrid(size = 16) {
   // Show grid size in text format
@@ -20,7 +26,7 @@ function createGrid(size = 16) {
   // Create squares and add to grid
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement('div');
-    
+
     square.classList.add('square');
     square.addEventListener('click', paintSquare);
 
@@ -45,7 +51,21 @@ function isDragging(event) {
 }
 
 function paintSquare(event) {
-  event.target.style.backgroundColor = brushColor;
+  switch (brushMode) {
+    case 'singleColor':
+      event.target.style.backgroundColor = brushColor;
+      break;
+    case 'eraser':
+      event.target.style.backgroundColor = '';
+      break;
+    case 'rainbow':
+      if (rainbowCounter === rainbowColors.length) {
+        rainbowCounter = 0;
+      }
+      event.target.style.backgroundColor = rainbowColors[rainbowCounter];
+      rainbowCounter++;
+      break;
+  }
 }
 
 function clearGrid() {
@@ -72,6 +92,8 @@ sizeSlider.addEventListener('mouseup', () => {
     square.classList.remove('bordered');
   });
 });
+
+brushModes.addEventListener('change', event => brushMode = event.target.value);
 
 brushColorSelect.addEventListener('change', event => brushColor = event.target.value);
 
