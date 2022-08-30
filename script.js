@@ -35,6 +35,8 @@ function createGrid(size = 16) {
 }
 
 grid.addEventListener('mousedown', event => {
+  event.preventDefault();
+
   if (event.button === 0) {
     grid.querySelectorAll('div').forEach(square => {
       square.addEventListener('mouseover', isDragging);
@@ -43,6 +45,8 @@ grid.addEventListener('mousedown', event => {
 });
 
 function isDragging(event) {
+  event.preventDefault();
+
   if (event.buttons === 0) {
     grid.querySelectorAll('div').forEach(square => {
       square.removeEventListener('mouseover', isDragging);
@@ -51,6 +55,8 @@ function isDragging(event) {
 }
 
 function paintSquare(event) {
+  event.preventDefault();
+
   switch (brushMode) {
     case 'singleColor':
       event.target.style.backgroundColor = brushColor;
@@ -67,6 +73,7 @@ function paintSquare(event) {
       break;
   }
 }
+
 
 function clearGrid() {
   if (backgroundColorSelect.value !== '#ffffff') {
