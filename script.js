@@ -1,5 +1,6 @@
 const grid = document.getElementById('grid');
 const sizeSlider = document.getElementById('sizeSlider');
+const clearButton = document.getElementById('clearButton')
 
 function createGrid(size = 16) {
   // Show grid size in text format
@@ -42,17 +43,25 @@ function paintSquare(event) {
   }
 }
 
+function clearGrid() {
+  grid.querySelectorAll('div').forEach(square => {
+    square.classList.remove('painted');
+  })
+}
+
 sizeSlider.addEventListener('input', event => {
   createGrid(event.target.value);
-  document.querySelectorAll('#grid>div').forEach(element => {
-    element.classList.add('bordered');
+  document.querySelectorAll('#grid>div').forEach(square => {
+    square.classList.add('bordered');
   });
 });
 
 sizeSlider.addEventListener('mouseup', () => {
-  document.querySelectorAll('#grid>div').forEach(element => {
-    element.classList.remove('bordered');
+  document.querySelectorAll('#grid>div').forEach(square => {
+    square.classList.remove('bordered');
   });
 });
+
+clearButton.addEventListener('click', clearGrid);
 
 window.addEventListener('load', () => createGrid());
