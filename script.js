@@ -20,10 +20,9 @@ function createGrid(size = 16) {
   // Create squares and add to grid
   for (let i = 0; i < size * size; i++) {
     const square = document.createElement('div');
+    
     square.classList.add('square');
-    square.addEventListener('click', event => {
-      event.target.classList.add('painted');
-    })
+    square.addEventListener('click', paintSquare);
 
     grid.appendChild(square);
   }
@@ -32,19 +31,21 @@ function createGrid(size = 16) {
 grid.addEventListener('mousedown', event => {
   if (event.button === 0) {
     grid.querySelectorAll('div').forEach(square => {
-      square.addEventListener('mouseover', paintSquare);
+      square.addEventListener('mouseover', isDragging);
     });
   }
 });
 
-function paintSquare(event) {
+function isDragging(event) {
   if (event.buttons === 0) {
     grid.querySelectorAll('div').forEach(square => {
-      square.removeEventListener('mouseover', paintSquare);
+      square.removeEventListener('mouseover', isDragging);
     });
-  } else {
-    event.target.style.backgroundColor = brushColor;
-  }
+  } else {paintSquare(event);}
+}
+
+function paintSquare(event) {
+  event.target.style.backgroundColor = brushColor;
 }
 
 function clearGrid() {
